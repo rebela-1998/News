@@ -1,0 +1,63 @@
+.header-items{
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    top: 1em;
+    justify-content: space-around;
+    width: 100%;
+    height: max-content;
+    column-gap: 20rem ;
+    border-bottom: 1px solid rgb(209, 207, 207);
+    padding-bottom: 1em;
+}
+
+.logo{
+    position: relative;
+    height: fit-content;
+    width: fit-content;
+}
+
+.logo-text,.home-link{
+    text-decoration: none;
+    color: rgb(245, 245, 112);
+    font-size: 3rem;
+    font-weight: 200;
+    font-family: "Rakkas", serif;
+}
+
+.logo-text{
+    border: 1px solid rgb(148, 147, 147);
+    background-color: rgb(163, 161, 161);
+    border-radius: 5px;
+    padding: 0 0.5em;
+}
+
+.logo-text{
+    margin: 0;
+}
+
+.login{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-btn{
+    height: max-content;
+    font-size: 1.2em;
+    color: #d1d129;
+    background-color: white;
+    border: 1px solid #d1d129;
+    border-radius: 15px;
+    font-family: "Rubik", sans-serif;
+    font-weight: 500;
+    padding: 0.3em 1.3em;
+}
+
+.login-btn:hover, .login-btn:active, .login-btn:focus{
+    color: #a5a5a4;
+    border: 1px solid #a8a8a8;
+}
+
+
+

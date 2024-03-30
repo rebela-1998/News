@@ -1,0 +1,42 @@
+.navbar{
+    display: flex;
+    flex-direction: row;
+    position: fixed;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid rgb(209, 207, 207);
+    margin-top: 1em;
+}
+
+.index{
+    display: flex;
+    flex-direction: row;
+    list-style-type: none;
+    column-gap: 5rem;
+    padding: 0;
+}
+
+.index-link{
+    font-size: 1em;
+    text-decoration: none;
+    font-family: "Rubik", sans-serif;
+    color: gray;
+}
+
+.index-link:hover{
+    border-bottom: 4px solid grey;
+}
+
+.index-link:active, .index-link:focus{
+    color: #d1d129;
+}
+
+.search{
+    display: flex;
+    justify-content: end;
+    text-decoration: none;
+    position: relative;
+    left: 14rem;
+    color: grey;
+}
