@@ -4,6 +4,7 @@ import Navbar from './Components/Navbar';
 import { BrowserRouter as Router,
          Routes,
         Route} from 'react-router-dom';
+import News from './Components/News';
 
 const App=()=> {
   return (
@@ -12,13 +13,7 @@ const App=()=> {
       <Header/>
       <Navbar/>
       <Routes>
-       <Route path='/' />
-       <Route path='/general'/>
-       <Route path='/lifestyle'/>
-       <Route path='/sports'/>
-       <Route path='/world'/>
-       <Route path='/local'/>
-       <Route path='/entertainment'/>
+       <Route path='/' element={<News/>}/>
       </Routes>
       </Router>
     </>

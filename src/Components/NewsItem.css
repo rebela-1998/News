@@ -1,0 +1,55 @@
+.datas{
+    display: grid;
+    grid-template-columns: 12em 12em 12em 12em;
+    position: relative;
+    border-bottom: 1px solid gray;
+    top: 30%;
+    grid-gap: 2em 2em;
+    text-decoration: none;
+    width: 100%;
+    justify-content: space-evenly;
+}
+
+.story-link{
+    text-decoration: none;
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-template-rows: 5em 3em 4em 3em 2em;
+}
+
+.thumbnail{
+    width: fit-content;
+    height: 5em;
+    border: none;
+    text-decoration: none;
+    grid-row: 1;
+    grid-column: 1/span 2;
+    justify-self: center;
+}
+
+.title, .intro, .author,.time{
+    color: black;
+    text-decoration: none;
+    font-family: "Rubik", sans-serif;
+    grid-column: 1/span 2;
+}
+
+.title{
+    grid-row: 2; 
+    font-size: 90%;
+}
+
+.intro{
+    grid-row: 3; 
+    font-size: 80%;
+}
+
+.author{
+    grid-row: 4; 
+    font-size: 80%;
+}
+
+.time{
+    grid-row: 5;
+    font-size: 70%;
+}

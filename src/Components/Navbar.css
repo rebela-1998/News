@@ -3,10 +3,15 @@
     flex-direction: row;
     position: fixed;
     width: 100%;
+    top: 6em;
     align-items: center;
+    height: fit-content;
     justify-content: center;
+    background-color: white;
+    border-top: 1px solid rgb(209, 207, 207);
     border-bottom: 1px solid rgb(209, 207, 207);
-    margin-top: 1em;
+    padding: 1% 0;
+    z-index: 1;
 }
 
 .index{
@@ -15,6 +20,7 @@
     list-style-type: none;
     column-gap: 5rem;
     padding: 0;
+    margin: 0;
 }
 
 .index-link{
@@ -37,6 +43,27 @@
     justify-content: end;
     text-decoration: none;
     position: relative;
-    left: 14rem;
+    left: 10%;
     color: grey;
+}
+
+@media screen and (min-width: 280px) and (max-width: 820px){
+    .navbar{
+        width: 100%;
+        top: 5em;
+    }
+    .index{
+        width: 90%;
+        column-gap: 10%;
+        justify-content: space-around;
+        column-gap: 2%;
+    }
+
+    .index-link{
+        font-size: 60%;
+    }
+
+    .search {
+        left: 0;
+    }
 }
