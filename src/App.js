@@ -13,7 +13,13 @@ const App=()=> {
       <Header/>
       <Navbar/>
       <Routes>
-       <Route path='/' element={<News/>}/>
+       <Route path='/' element={<News category='general'/>}/>
+       <Route path='/general' element={<News category='general'/>}/>
+       <Route path='/health' element={<News category='health'/>}/>
+       <Route path='/sports' element={<News category='sports'/>}/>
+       <Route path='/science' element={<News category='science'/>}/>
+       <Route path='/business' element={<News category='business'/>}/>
+       <Route path='/entertainment' element={<News category='entertainment'/>}/>
       </Routes>
       </Router>
     </>
