@@ -4,6 +4,7 @@ import apikey from '../Api-key'
 import NewsItem from './NewsItem'
 import './NewsItem.css'
 import Loading from './Loading'
+import ErrorPage from './ErrorPage'
 
 
 const News = (props) => {
@@ -11,6 +12,7 @@ const News = (props) => {
     const [stories,setStories]=useState([])
     const [page,setPage]=useState(1)
     const [loading,setLoading]=useState(false)
+    const [error,setError]=useState(false)
 
     const handleInfiniteScroll=async()=>{
         try{
@@ -33,10 +35,12 @@ const News = (props) => {
                 setStories((prev)=>[...prev, ...resData])
             }
             catch(error){
-                console.log('getting error while fetching data');
+                setError(true)
+                console.log('getting error while fetching data'+error);
+
             }
         }
-        fetchdata()},[page])
+        fetchdata()},[page,props])
     
 
     useEffect(()=>{
@@ -46,6 +50,9 @@ const News = (props) => {
 
     return (
         <>
+          {error===true?
+            <ErrorPage/>
+            :
             <div className='datas'>
             {stories.map((article) => {
                 return (<div className='items' key={article.url}>
@@ -57,7 +64,7 @@ const News = (props) => {
             }
             {loading && <Loading/>}
             </div>
-            
+              }
         </>
     )
 }

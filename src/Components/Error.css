@@ -1,0 +1,13 @@
+.error-page{
+    position: relative;
+    top: 50%;
+    text-align: center;
+}
+
+
+.error-msg{
+    color: #d1d129;
+    background-color: white;
+    font-family: "Rubik", sans-serif;
+    font-weight: 500;
+}
