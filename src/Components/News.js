@@ -1,72 +1,76 @@
 import React, { useEffect, useState } from 'react'
-import axios from 'axios'
-import apikey from '../Api-key'
 import NewsItem from './NewsItem'
 import './NewsItem.css'
 import Loading from './Loading'
 import ErrorPage from './ErrorPage'
-import {useSelector} from 'react-redux'
-import SearchItem from './SearchItem'
+import { useSelector, useDispatch } from 'react-redux'
+// import SearchItem from './SearchItem'
+import InfiniteScroll from 'react-infinite-scroll-component'
+import { fetchdata, getError, getTotalResult, getfetchdata, removeSearch } from '../Store/Slices/SearchSlice'
 
 
 const News = (props) => {
 
-    const [stories, setStories] = useState([])
     const [page, setPage] = useState(1)
-    const [loading, setLoading] = useState(true)
-    const [error, setError] = useState(false)
-    const search=useSelector(state=> state.search)
+    // const [loading, setLoading] = useState(false)
+    const [pagesize, setPagesize] = useState(9)
+    const dispatch = useDispatch()
 
-      useEffect(()=>{
-        const fetchdata = async () => {
-            try {
-                const res = await axios.get(`https://newsapi.org/v2/top-headlines?country=in&category=${props.category}&apiKey=${apikey}&pageSize=9&page=${page}`)
-                setLoading(false)
-                setStories(prev=>[...prev, ...res.data.articles])
-            }
-            catch (error) {
-                setError(true)
-                console.log('getting error while fetching data ' + error);
-            }
-        }
-        fetchdata()
-    },[page,props.category])
-    
+    const stories = useSelector(getfetchdata)
+    const totalResult = useSelector(getTotalResult)
+    const error = useSelector(getError)
 
+    const { category } = props
 
-    const handleInfiniteScroll=()=>{
-        if(window.innerHeight+document.documentElement.scrollTop+1>=document.documentElement.scrollHeight){
-            setPage(prevpage=>prevpage+1);
-        }
+    // const handleInfiniteScroll = () => {
+    //     if ((window.innerHeight + document.documentElement.scrollTop + 1 >= document.documentElement.scrollHeight) && (pagesize <= totalResult)) {
+    //         setPage(prevpage => prevpage + 1);
+    //         setPagesize(prevsize => prevsize + 9)
+    //     }
+    // }
+
+    const fetchMoredata=()=>{
+        setPage(prev=>prev+1)
+        setPagesize(prev=>prev+9)
     }
 
-    useEffect(()=>{
-       window.addEventListener("scroll",handleInfiniteScroll);
+    useEffect(() => {
+            dispatch(fetchdata({ page, category,pagesize }))
+            return () => {
+                dispatch(removeSearch());};    
+            }, [dispatch, page, category,pagesize])
 
-       return ()=>{window.removeEventListener("scroll",handleInfiniteScroll)}
-    })
+    // useEffect(() => {
+    //     window.addEventListener("scroll", handleInfiniteScroll);
+    //     return () => { window.removeEventListener("scroll", handleInfiniteScroll) }
+    // })
 
+    console.log(totalResult)
     return (
         <>
-            {error === true ?
-                <ErrorPage/>
+            {error !== '' ?
+                <ErrorPage />
                 :
-                <div className='datas'>
-                        {search.length===0?
-                        (stories.map((article) => {
+                <InfiniteScroll
+                    dataLength={stories.length} //This is important field to render the next data
+                    next={fetchMoredata}
+                    hasMore={stories.length!==totalResult}
+                    loader={<Loading />}
+                    >
+                    <div className='datas'>
+                        {stories.map((article) => {
                             return (
-                            <div className='items' key={article.url}>
-                                <NewsItem title={article.title ? article.title.slice(0, 45) : ""} desc={article.description ? article.description.slice(0, 88) : ""}
-                                    author={article.author == null ? 'anonymous' : article.author} link={article.url} imgurl={article.urlToImage == null ? '/asset/favicon_io (1)/favicon-16x16.png' : article.urlToImage}
-                                    dateTime={article.publishedAt} />
-                            </div>)
+                                <div className='items' key={article.url}>
+                                    <NewsItem title={article.title ? article.title.slice(0, 45) : ""} desc={article.description ? article.description.slice(0, 88) : ""}
+                                        author={article.author == null ? 'anonymous' : article.author} link={article.url} imgurl={article.urlToImage == null ? '/asset/favicon_io (1)/favicon-16x16.png' : article.urlToImage}
+                                        dateTime={article.publishedAt} />
+                                </div>)
                         })
-                       )
-                        :
-                        <SearchItem/>
+                            // (setLoading(false))
                         }
-                        {loading && <Loading />}
-                </div>
+                        {/* {loading && <Loading />} */}
+                    </div>
+                </InfiniteScroll>
             }
         </>
     )
