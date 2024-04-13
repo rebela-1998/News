@@ -1,8 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from 'axios'
-import apikey from "../../Api-key";
-
-const baseUrl = 'https://newsapi.org';
+const baseUrl = `https://newsapi.org/v2/top-headlines?country=in&apiKey=${process.env.REACT_APP_API_KEY}`;
 
 const initialState = {
     stories: [],
@@ -11,14 +9,14 @@ const initialState = {
 };
 
 export const fetchdata = createAsyncThunk('search/fetchData', async ({page,category,pagesize},thunkAPI) => {
-        const res = await axios.get(`https://newsapi.org/v2/top-headlines?country=in&category=${category}&apiKey=${apikey}&pageSize=${pagesize}&page=${page}`)
+        const res = await axios.get(`${baseUrl}&category=${category}&pageSize=9&page=${page}`)
         return res.data;
         // console.log('callled'+res.data.articles);
     }
 )
 
 export const fetchSearch = createAsyncThunk('search/fetchSearch', async (keyword) => {
-        const res = await axios.get(`${baseUrl}/v2/top-headlines?country=in&apiKey=${apikey}&q=${keyword}`)
+        const res = await axios.get(`${baseUrl}&q=${keyword}`)
         return res.data;
     }
 )
@@ -31,7 +29,10 @@ const SearchSlice = createSlice({
         //     state.stories.push(action.payload)
         // },
         removeSearch(state, action) {
-            state.length = 0
+            state.stories.length = 0
+        },
+        removeError(state,action){
+            state.error=''
         }
     },
     extraReducers(builder) {
@@ -56,4 +57,4 @@ export const getfetchdata = (state) => state.search.stories
 export const getTotalResult=(state)=>state.search.totalResult
 export const getError = (state) => state.search.error
 export default SearchSlice
-export const { removeSearch } = SearchSlice.actions
+export const { removeSearch,removeError } = SearchSlice.actions

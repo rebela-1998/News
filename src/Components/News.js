@@ -6,7 +6,7 @@ import ErrorPage from './ErrorPage'
 import { useSelector, useDispatch } from 'react-redux'
 // import SearchItem from './SearchItem'
 import InfiniteScroll from 'react-infinite-scroll-component'
-import { fetchdata, getError, getTotalResult, getfetchdata, removeSearch } from '../Store/Slices/SearchSlice'
+import { fetchdata, getError, getTotalResult, getfetchdata, removeSearch ,removeError} from '../Store/Slices/SearchSlice'
 
 
 const News = (props) => {
@@ -31,14 +31,16 @@ const News = (props) => {
 
     const fetchMoredata=()=>{
         setPage(prev=>prev+1)
-        setPagesize(prev=>prev+9)
+        // setPagesize(prev=>prev+9)
     }
 
     useEffect(() => {
-            dispatch(fetchdata({ page, category,pagesize }))
+            dispatch(fetchdata({ page, category }))
             return () => {
-                dispatch(removeSearch());};    
-            }, [dispatch, page, category,pagesize])
+                dispatch(removeSearch());
+                dispatch(removeError());
+            };    
+            }, [dispatch, page, category])
 
     // useEffect(() => {
     //     window.addEventListener("scroll", handleInfiniteScroll);
